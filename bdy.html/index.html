@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Do You Love Me?</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0;
+      color: white; /* Text color for contrast against background */
+      position: relative; /* Positioning for the overlay */
+      overflow: hidden; /* Hide overflow */
+      perspective: 1200px; /* Add perspective for 3D doors */
+    }
+
+    /* Pseudo-element to create the blurred background */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('pic1.jpg'); /* Local image as background */
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    /* Overlay to make text readable on blurred background */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    /* Heart-shaped burst effect using emoji */
+    .corner-heart {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      font-size: 60px;
+      color: rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartBurst 2s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    @keyframes heartBurst {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    .top-left {
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-right {
+      top: 10px;
+      right: 10px;
+    }
+
+    .bottom-left {
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4c89;
+      margin-bottom: 20px;
+      font-family: 'Cursive', sans-serif;
+    }
+
+    .emoji {
+      font-size: 2.5em;
+      margin: 20px;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      border-radius: 25px;
+      background: #ff4c89;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2666;
+    }
+
+    /* Panda MP4 Styling and Animation */
+    #panda {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: pandaMove 5s ease-in-out infinite;
+    }
+
+    @keyframes pandaMove {
+      0% {
+        transform: translateX(-50%) translateX(-100px);
+      }
+      50% {
+        transform: translateX(-50%) translateX(100px);
+      }
+      100% {
+        transform: translateX(-50%) translateX(-100px);
+      }
+    }
+
+    /* Door Curtain Styling */
+    #curtain-left,
+    #curtain-right {
+      position: fixed;
+      top: 0;
+      width: 50vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #4a2f1d, #7b4e2b);
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+      border: 3px solid #3a2413;
+      /* subtle wood grain lines using linear gradient stripes */
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          #5a3c25,
+          #5a3c25 2px,
+          #4a2f1d 2px,
+          #4a2f1d 10px
+        );
+    }
+
+    #curtain-left {
+      left: 0;
+      transform-origin: left center;
+      border-right: 5px solid #3a2413;
+    }
+
+    #curtain-right {
+      right: 0;
+      transform-origin: right center;
+      border-left: 5px solid #3a2413;
+    }
+
+    /* Open animation - swing doors */
+    #curtain-left.open {
+      transform: rotateY(-90deg);
+      box-shadow: none;
+      opacity: 0.95;
+    }
+
+    #curtain-right.open {
+      transform: rotateY(90deg);
+      box-shadow: none;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+   
+  <!-- Content Wrapper -->
+  <div class="content">
+    <!-- Question -->
+    <h1>Do you love me more than I love you? ❤️</h1>
+
+    <!-- Options -->
+    <div>
+      <button class="btn" onclick="answer('yes')">Yes</button>
+      <button class="btn" onclick="answer('no')">No</button>
+    </div>
+  </div>
+
+  <!-- Panda MP4 Video -->
+  <div id="panda">
+    <video width="150" autoplay loop muted>
+      <source src="panda.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Heart (Love Symbol) Burst Effects in Corners -->
+  <div class="corner-heart top-left">❤️</div>
+  <div class="corner-heart top-right">❤️</div>
+  <div class="corner-heart bottom-left">❤️</div>
+  <div class="corner-heart bottom-right">❤️</div>
+  <div class="emoji">🐼</div>
+
+  (oye mekapilla ee kinda unnadi nuvve 😄)
+
+  <audio id="bg-music" autoplay loop hidden>
+    <source src="song4.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Door Curtain Panels -->
+  <div id="curtain-left"></div>
+  <div id="curtain-right"></div>
+
+  <script>
+    window.addEventListener('load', function () {
+      const audio = document.getElementById('bg-music');
+      audio.play().catch(function (error) {
+        console.log('Autoplay blocked. Waiting for user interaction...');
+      });
+    });
+
+    document.addEventListener('click', function () {
+      const audio = document.getElementById('bg-music');
+      audio.play();
+    });
+
+    // Function to handle button click
+    function answer(response) {
+      if (response === 'yes') {
+        window.location.href = 'yes.html';
+      } else {
+        window.location.href = 'no.html';
+      }
+    }
+
+    // Door curtain open animation on first click
+    function openDoors() {
+      const left = document.getElementById('curtain-left');
+      const right = document.getElementById('curtain-right');
+
+      left.classList.add('open');
+      right.classList.add('open');
+
+      // After animation ends, hide the doors so content is fully accessible
+      setTimeout(() => {
+        left.style.display = 'none';
+        right.style.display = 'none';
+      }, 2500);
+
+      // Remove event listener so it only happens once
+      document.removeEventListener('click', openDoors);
+    }
+
+    document.addEventListener('click', openDoors);
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Really?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      color: white;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url('pic4.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .corner-heart {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      font-size: 60px;
+      color: rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartBurst 2s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    @keyframes heartBurst {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
+
+    .content {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 3;
+    }
+
+    .content.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4c89;
+      margin-bottom: 20px;
+      font-family: 'Cursive', sans-serif;
+      text-shadow: 0 0 15px #ffb6d9;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      border-radius: 25px;
+      background: #ff4c89;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2666;
+      transform: scale(1.05);
+    }
+
+    /* Paper Cover */
+    .paper-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffc0cb 20%, #ff69b4 80%);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+      transition: transform 1.5s ease, opacity 1.2s ease;
+      transform-origin: top;
+    }
+
+    .paper-cover.hidden {
+      transform: scaleY(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .paper-cover h2 {
+      color: white;
+      font-size: 2em;
+      animation: pulse 2s infinite;
+      font-family: 'Cursive', sans-serif;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Paper Fold Cover -->
+  <div class="paper-cover" id="cover">
+    <h2>Tap to unfold the truth... 💌</h2>
+  </div>
+
+  <!-- Page Content -->
+  <div class="content" id="mainContent">
+    <h1>Really? ❤️</h1>
+    <button class="btn" onclick="window.location.href='confirm.html'">Yes, I do!</button>
+    <button class="btn" onclick="window.location.href='no.html'">No, maybe not...</button>
+  </div>
+
+  <!-- Heart Burst Effects -->
+  <div class="corner-heart top-left">❤️</div>
+  <div class="corner-heart top-right">❤️</div>
+  <div class="corner-heart bottom-left">❤️</div>
+  <div class="corner-heart bottom-right">❤️</div>
+   <audio id="bg-music" autoplay>
+    <source src="song1.mp3" type="audio/mpeg" loop>
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    window.addEventListener("load", function () {
+      const audio = document.getElementById("bg-music");
+      audio.play().catch(function (error) {
+        console.log("Autoplay blocked. Waiting for user interaction...");
+      });
+    });
+
+    document.addEventListener("click", function () {
+      const audio = document.getElementById("bg-music");
+      audio.play();
+    });
+  </script>
+
+  <!-- Reveal Content on Tap -->
+  <script>
+    const cover = document.getElementById('cover');
+    const content = document.getElementById('mainContent');
+
+    cover.addEventListener('click', () => {
+      cover.classList.add('hidden');
+      setTimeout(() => {
+        content.classList.add('visible');
+      }, 1000); // Show content after cover fades
+    });
+  </script>
+</body>
+</html>

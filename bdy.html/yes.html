@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yes, I Love You More!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('pic3.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .corner-heart {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      font-size: 60px;
+      color: rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartBurst 2s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    @keyframes heartBurst {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4c89;
+      margin-bottom: 20px;
+      font-family: 'Cursive', sans-serif;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      border-radius: 25px;
+      background: #ff4c89;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2666;
+    }
+
+    /* Fairy Sparkle Wipe Overlay */
+    #sparkle-wipe {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 9999;
+      pointer-events: all;
+      overflow: hidden;
+    }
+
+    /* Sparkle container */
+    #sparkle-wipe .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle at center, #fff, rgba(255,255,255,0));
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: sparkle-move 2s linear infinite;
+      filter: drop-shadow(0 0 4px #fff);
+    }
+
+    /* Create multiple sparkles with different positions & delays */
+    #sparkle-wipe .sparkle:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 2.5s;
+    }
+    #sparkle-wipe .sparkle:nth-child(2) {
+      top: 50%;
+      left: 30%;
+      animation-delay: 0.4s;
+      animation-duration: 2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(3) {
+      top: 70%;
+      left: 60%;
+      animation-delay: 0.8s;
+      animation-duration: 3s;
+    }
+    #sparkle-wipe .sparkle:nth-child(4) {
+      top: 40%;
+      left: 80%;
+      animation-delay: 1.2s;
+      animation-duration: 2.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(5) {
+      top: 10%;
+      left: 50%;
+      animation-delay: 1.6s;
+      animation-duration: 2.6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(6) {
+      top: 20%;
+      left: 50%;
+      animation-delay: 1.6s;
+      animation-duration: 2.6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(7) {
+      top: 80%;
+      left: 20%;
+      animation-delay: 2s;
+      animation-duration: 3.2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(8) {
+      top: 30%;
+      left: 70%;
+      animation-delay: 2.4s;
+      animation-duration: 3.5s;
+    }
+    #sparkle-wipe .sparkle:nth-child(9) {
+      top: 60%;
+      left: 40%;
+      animation-delay: 2.8s;
+      animation-duration: 3.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(10) {
+      top: 90%;
+      left: 30%;
+      animation-delay: 3.2s;
+      animation-duration: 4s;
+    }
+     #sparkle-wipe .sparkle:nth-child(11) {
+      top: 50%;
+      left: 20%;
+      animation-delay: 3.2s;
+      animation-duration: 4s;
+    }
+    #sparkle-wipe .sparkle:nth-child(12) {
+      top: 10%;
+      left: 80%;
+      animation-delay: 3.6s;
+      animation-duration: 4.2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(13) {
+      top: 70%;
+      left: 10%;
+      animation-delay: 4s;
+      animation-duration: 4.5s;
+    }
+    #sparkle-wipe .sparkle:nth-child(14) {
+      top: 30%;
+      left: 90%;
+      animation-delay: 4.4s;
+      animation-duration: 4.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(15) {
+      top: 20%;
+      left: 60%;
+      animation-delay: 4.8s;
+      animation-duration: 5s;
+    }
+    #sparkle-wipe .sparkle:nth-child(16) {
+      top: 40%;
+      left: 30%;
+      animation-delay: 5.2s;
+      animation-duration: 5.2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(17) {
+      top: 60%;
+      left: 80%;
+      animation-delay: 5.6s;
+      animation-duration: 5.4s;
+    }
+    #sparkle-wipe .sparkle:nth-child(18) {
+      top: 80%;
+      left: 50%;
+      animation-delay: 6s;
+      animation-duration: 5.6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(19) {
+      top: 90%;
+      left: 40%;
+      animation-delay: 6.4s;
+      animation-duration: 5.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(20) {
+      top: 20%;
+      left: 70%;
+      animation-delay: 6.8s;
+      animation-duration: 6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(21) {
+      top: 50%;
+      left: 10%;
+      animation-delay: 7.2s;
+      animation-duration: 6.2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(22) {
+      top: 30%;
+      left: 90%;
+      animation-delay: 7.6s;
+      animation-duration: 6.4s;
+    }
+    #sparkle-wipe .sparkle:nth-child(23) {
+      top: 70%;
+      left: 20%;
+      animation-delay: 8s;
+      animation-duration: 6.6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(24) {
+      top: 10%;
+      left: 40%;
+      animation-delay: 8.4s;
+      animation-duration: 6.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(25) {
+      top: 60%;
+      left: 70%;
+      animation-delay: 8.8s;
+      animation-duration: 7s;
+    }
+    #sparkle-wipe .sparkle:nth-child(26) {
+      top: 80%;
+      left: 60%;
+      animation-delay: 9.2s;
+      animation-duration: 7.2s;
+    }
+    #sparkle-wipe .sparkle:nth-child(27) {
+      top: 40%;
+      left: 10%;
+      animation-delay: 9.6s;
+      animation-duration: 7.4s;
+    }
+    #sparkle-wipe .sparkle:nth-child(28) {
+      top: 20%;
+      left: 90%;
+      animation-delay: 10s;
+      animation-duration: 7.6s;
+    }
+    #sparkle-wipe .sparkle:nth-child(29) {
+      top: 50%;
+      left: 30%;
+      animation-delay: 10.4s;
+      animation-duration: 7.8s;
+    }
+    #sparkle-wipe .sparkle:nth-child(30) {
+      top: 90%;
+      left: 80%;
+      animation-delay: 10.8s;
+      animation-duration: 8s;
+    }
+
+    /* Sparkle animation */
+
+
+    @keyframes sparkle-move {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translate(5px, -5px) scale(1.2);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.9;
+      }
+    }
+
+    /* Wipe animation */
+    #sparkle-wipe.wipe-out {
+      animation: wipeOut 2s forwards ease-in-out;
+    }
+
+    @keyframes wipeOut {
+      0% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Content -->
+  <div class="content" id="main-content">
+    <h1>Do you really think you love me more than I love you? ❤️</h1>
+    <button class="btn" onclick="window.location.href = 'really.html'">Yes, I do!</button>
+    <button class="btn" onclick="window.location.href = 'no.html'">No, I don't!</button>
+  </div>
+
+  <!-- Hearts in Corners -->
+  <div class="corner-heart top-left">❤️</div>
+  <div class="corner-heart top-right">❤️</div>
+  <div class="corner-heart bottom-left">❤️</div>
+  <div class="corner-heart bottom-right">❤️</div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop hidden>
+    <source src="song2.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Fairy Sparkle Wipe Overlay -->
+  <div id="sparkle-wipe">
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    
+
+
+  </div>
+
+  <script>
+    // Enable music on click
+    window.addEventListener("load", function () {
+      const audio = document.getElementById("bg-music");
+      audio.play().catch(() => {
+        console.log("Autoplay blocked. Waiting for user interaction...");
+      });
+    });
+
+    document.addEventListener("click", function handler() {
+      const audio = document.getElementById("bg-music");
+      audio.play();
+
+      // Start wipe-out animation
+      const wipe = document.getElementById('sparkle-wipe');
+      wipe.classList.add('wipe-out');
+
+      // Show content
+      document.getElementById('main-content').style.opacity = 1;
+
+      // Remove sparkle wipe after animation finishes
+      setTimeout(() => {
+        wipe.style.display = 'none';
+      }, 2000);
+
+      // Remove this event listener after first click
+      document.removeEventListener('click', handler);
+    });
+  </script>
+</body>
+</html>
