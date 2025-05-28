@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autoplay Audio Test</title>
+</head>
+<body>
+  <h1>Welcome to My Website</h1>
+  <p>Audio should play automatically. If not, click anywhere.</p>
+
+  <audio id="bg-music" autoplay>
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    window.addEventListener("load", function () {
+      const audio = document.getElementById("bg-music");
+      audio.play().catch(function (error) {
+        console.log("Autoplay blocked. Waiting for user interaction...");
+      });
+    });
+
+    document.addEventListener("click", function () {
+      const audio = document.getElementById("bg-music");
+      audio.play();
+    });
+  </script>
+</body>
+</html>

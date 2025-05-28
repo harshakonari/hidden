@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Please Confirm</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      color: white;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('pic5.jpg');
+      background-size: tiled;
+      background-position: center;
+      filter: blur(8px);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .corner-heart {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      font-size: 60px;
+      color: rgba(255, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartBurst 2s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    @keyframes heartBurst {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
+
+    .content {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 3;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4c89;
+      margin-bottom: 20px;
+      font-family: 'Cursive', sans-serif;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      border-radius: 25px;
+      background: #ff4c89;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff2666;
+      transform: scale(1.05);
+    }
+
+    /* Rainbow Beam Overlay */
+    #rainbow-beam {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: repeating-linear-gradient(
+        45deg,
+        red, orange, yellow, green, blue, indigo, violet,
+        red, orange, yellow, green, blue, indigo, violet
+      );
+      background-size: 400% 400%;
+      animation: rainbowMove 5s linear infinite;
+      opacity: 0.9;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 1s ease;
+    }
+
+    @keyframes rainbowMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Rainbow beam overlay -->
+  <div id="rainbow-beam" title="Tap to reveal your message"></div>
+
+  <!-- Content -->
+  <div class="content" id="mainContent">
+    <h1>Please Confirm ❤️</h1>
+    <button class="btn" onclick="window.location.href = 'surprise.html'">Yes, I really do!</button>
+    <button class="btn" onclick="window.location.href = 'no.html'">No, I changed my mind...</button>
+  </div>
+
+  <!-- Hearts -->
+  <div class="corner-heart top-left">❤️</div>
+  <div class="corner-heart top-right">❤️</div>
+  <div class="corner-heart bottom-left">❤️</div>
+  <div class="corner-heart bottom-right">❤️</div>
+
+  <!-- Audio -->
+  <audio id="bg-music" autoplay>
+    <source src="song5.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const rainbowBeam = document.getElementById('rainbow-beam');
+
+    window.addEventListener("load", () => {
+      const audio = document.getElementById("bg-music");
+      audio.play().catch(() => {});
+    });
+
+    document.addEventListener("click", () => {
+      const audio = document.getElementById("bg-music");
+      audio.play();
+    });
+
+    // Rainbow beam fade out on click
+    rainbowBeam.addEventListener('click', () => {
+      rainbowBeam.style.opacity = '0';
+      setTimeout(() => {
+        rainbowBeam.style.display = 'none';
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
